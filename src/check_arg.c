@@ -6,7 +6,7 @@
 /*   By: mtiesha < mtiesha@student.21-school.ru>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/04 11:46:26 by mtiesha           #+#    #+#             */
-/*   Updated: 2022/03/05 14:56:28 by mtiesha          ###   ########.fr       */
+/*   Updated: 2022/03/06 15:43:34 by mtiesha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,10 @@ static void	ft_init(t_src **s)
 {
 	*s = (t_src *)malloc(sizeof(t_src));
 	if (!s)
+	{
 		perror("Error");
+		exit(1);
+	}
 	(*s)->path_cmd1 = NULL;
 	(*s)->path_cmd2 = NULL;
 	(*s)->cmd1_args = NULL;

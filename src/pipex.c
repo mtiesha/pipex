@@ -6,7 +6,7 @@
 /*   By: mtiesha < mtiesha@student.21-school.ru>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 17:23:47 by mtiesha           #+#    #+#             */
-/*   Updated: 2022/03/05 20:23:41 by mtiesha          ###   ########.fr       */
+/*   Updated: 2022/03/06 07:25:03 by mtiesha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 static void	ft_swich_child(t_src **s, int *fd, char **envp)
 {
-	close(0);
 	dup2((*s)->file1, 0);
-	close(1);
 	dup2(fd[1], 1);
+	close(fd[0]);
+	close((*s)->file1);
 	if (-1 == execve((*s)->path_cmd1, (*s)->cmd1_args, envp))
 		ft_errorer(s);
 }
 
 static void	ft_swich_parent(t_src **s, int *fd, char **envp)
 {
-	close(0);
 	dup2(fd[0], 0);
-	close(1);
 	dup2((*s)->file2, 1);
+	close(fd[1]);
+	close((*s)->file2);
 	if (-1 == execve((*s)->path_cmd2, (*s)->cmd2_args, envp))
 		ft_errorer(s);
 }
