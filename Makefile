@@ -1,5 +1,7 @@
 NAME = pipex
 
+NAME_B = pipex
+
 HEADER = ./include/pipex.h ./utils/utils.h 
 
 SRCS_UTILS = ./src/check_arg.c ./src/check_env.c ./src/source_1.c \
@@ -7,13 +9,20 @@ SRCS_UTILS = ./src/check_arg.c ./src/check_env.c ./src/source_1.c \
 
 SRCS = ./src/pipex.c ${SRCS_UTILS}
 
+HEADER_B = ./include_bonus/pipex_bonus.h ./utils_bonus/utils_bonus.h 
+
+SRCS_UTILS_B = ./src_bonus/check_arg_bonus.c ./src_bonus/check_env_bonus.c ./src_bonus/source_1_bonus.c \
+		./src_bonus/source_2_bonus.c ./src_bonus/erroer_bonus.c ./src_bonus/source_3_bonus.c ./utils_bonus/utils_bonus.c
+
+SRCS_B = ./src_bonus/pipex_bonus.c ${SRCS_UTILS_B}
+
 RM = rm -rf
 
-CFLAGS = -g -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 OBJ = ${SRCS:.c=.o}
 
-#BONUS_OBJ = ${SRCS_BONUS:.c=.o}
+OBJ_B = ${SRCS_B:.c=.o}
 
 CC = gcc
 
@@ -23,25 +32,22 @@ ${NAME} : ${OBJ} Makefile ${HEADER}
 	@${CC} -o ${NAME} ${OBJ} ${HEADER}
 	@echo "\033[32mCompiled"
 
-#bonus : $(BONUS)
+bonus : ${OBJ_B} Makefile ${HEADER_B}
+	@${CC} -o ${NAME_B} ${OBJ_B} ${HEADER_B}
+	@echo "\033[32mBonus Update"
 
-#$(BONUS) : $(BONUS_OBJS) Makefile pipex.h ./libft/libft.h 
-#	@$(MAKE) all -C ./libft
-#	${CC} ${CFLAGS} -c ${SRCS_BONUS}
-#	${CC} ${CFLAGS} ${BONUS_OBJ} ${LIBFT} push_swap.h get_next_line.h -o ${BONUS}
-
-%.o : %.c Makefile ${HEADER}
+%.o : %.c
 	@${CC} ${CFLAGS} -c -o $@ $<
 
 clean :
-	@${RM} ${OBJ}
+	@${RM} ${OBJ} ${OBJ_B}
 	@echo "\033[32mClean"
 
 fclean : clean
 	@${RM} ${NAME}
 	@echo "\033[32mFclean"
 
-whereisdetonator :
+whereisdetonator : fclean
 	@echo  "\033[41;5m                  "
 	@echo "          |\_|\				"
 	@echo "          | a_a\				"
@@ -1078,7 +1084,8 @@ whereisdetonator :
 	@echo "       / |   |____)			"
 	@echo "       |_/		    \033[0m"
 	@clear
-	@echo "kek"
+	@echo "Batman has cleared the city of *.o-files"
+	@echo "\"Mr ./a.out\" went after his henchmen....."
 re : fclean all
 
-.PHONY : clean fclean all re whereisdetonator
+.PHONY : clean fclean all re whereisdetonator bonus
